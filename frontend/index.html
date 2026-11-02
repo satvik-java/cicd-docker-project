@@ -1,32 +1,82 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculator App</title>
-    <link rel="stylesheet" href="style.css">
+    <title>CI/CD Pipeline Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #eef2f7;
+            margin: 0;
+            padding: 40px;
+            text-align: center;
+        }
+        .container {
+            max-width: 750px;
+            margin: 40px auto;
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px #ccd3df;
+        }
+        h1 { color: #2456c5; }
+        .step {
+            background: #f1f8f3;
+            padding: 18px;
+            margin: 15px 0;
+            border-radius: 10px;
+            text-align: left;
+        }
+        .success { color: green; font-weight: bold; }
+        button {
+            background: #2456c5;
+            color: white;
+            border: none;
+            padding: 14px 25px;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
+<div class="container">
+    <h1>CI/CD Pipeline Dashboard - Version 2</h1>
+    <p>Continuous Integration and Continuous Deployment</p>
 
-    <div class="calculator">
-        <h1>Calculator</h1>
-
-        <input type="number" id="num1" placeholder="Enter first number">
-
-        <select id="operation">
-            <option value="+">Addition (+)</option>
-            <option value="-">Subtraction (-)</option>
-            <option value="*">Multiplication (*)</option>
-            <option value="/">Division (/)</option>
-        </select>
-
-        <input type="number" id="num2" placeholder="Enter second number">
-
-        <button onclick="calculate()">Calculate</button>
-
-        <h2 id="result">Result: </h2>
+    <div class="step">1. Source Code Management
+        <span class="success">✓ Completed</span>
+    </div>
+    <div class="step">2. Automated Build
+        <span class="success">✓ Completed</span>
+    </div>
+    <div class="step">3. Automated Testing
+        <span class="success">✓ Completed</span>
+    </div>
+    <div class="step">4. Docker Image Build
+        <span class="success">✓ Completed</span>
+    </div>
+    <div class="step">5. Docker Deployment
+        <span class="success">✓ Running</span>
     </div>
 
-    <script src="script.js"></script>
+    <h3 id="backend">Checking backend...</h3>
+    <button onclick="checkBackend()">Check Backend</button>
+</div>
+
+<script>
+async function checkBackend() {
+    const result = document.getElementById("backend");
+    try {
+        const response = await fetch("/api/health");
+        const data = await response.json();
+        result.innerText = "Backend Status: " + data.status;
+    } catch (error) {
+        result.innerText = "Backend connection failed";
+    }
+}
+checkBackend();
+</script>
 </body>
 </html>
